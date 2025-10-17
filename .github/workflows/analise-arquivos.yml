@@ -1,0 +1,35 @@
+name: 02 - Análise de Arquivos
+
+on:
+  push:
+
+jobs:
+  analise_arquivos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Listar arquivos do repositório
+        run: ls -lh
+
+      - name: Contar arquivos HTML
+        run: |
+          HTML=$(find . -name "*.html" | wc -l)
+          echo "📄 Total de arquivos HTML: $HTML"
+
+      - name: Criar arquivo README automático
+        run: |
+          echo "# Projeto Automatizado" > README.md
+          echo "Gerado automaticamente via GitHub Actions em $(date)" >> README.md
+          echo "Usuário responsável: ${{ github.actor }}" >> README.md
+
+      - name: Verificar arquivos maiores que 100KB
+        run: |
+          echo "Procurando arquivos grandes..."
+          find . -type f -size +100k -print > arquivos_grandes.txt || true
+          if [ -s arquivos_grandes.txt ]; then
+            echo "Arquivos maiores que 100KB encontrados:"
+            cat arquivos_grandes.txt
+          else
+            echo "Nenhum arquivo grande encontrado."
+          fi
