@@ -1,0 +1,23 @@
+name: Alertar sobre arquivos > 100KB
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  alerta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verificar arquivos grandes
+        run: |
+          find . -type f -size +100k > grandes.txt || true
+          if [ -s grandes.txt ]; then
+            echo "⚠️ Arquivos maiores que 100KB encontrados:"
+            cat grandes.txt
+          else
+            echo "Nenhum arquivo maior que 100KB encontrado."
+          fi

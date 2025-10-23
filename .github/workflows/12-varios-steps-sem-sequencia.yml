@@ -1,0 +1,29 @@
+name: Steps independentes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sem-sequencia:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        step: [data, usuario, contagem]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Executar step
+        run: |
+          if [ "${{ matrix.step }}" = "data" ]; then
+            echo "Data: $(date)"
+          elif [ "${{ matrix.step }}" = "usuario" ]; then
+            echo "Usuário: ${{ github.actor }}"
+          else
+            echo "HTML: $(find . -name '*.html' | wc -l)"
+            echo "CSS: $(find . -name '*.css' | wc -l)"
+            echo "JS: $(find . -name '*.js' | wc -l)"
+          fi

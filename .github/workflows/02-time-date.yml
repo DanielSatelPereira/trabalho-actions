@@ -1,0 +1,11 @@
+name: 02 - Mostrar data e hora do push
+
+on:
+  push:
+
+jobs:
+  data-e-hora:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mensagem de boas-vindas
+        run: echo "Data e hora do push = $(date)"

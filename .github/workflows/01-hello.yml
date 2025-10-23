@@ -1,7 +1,9 @@
-name: 00 - Hello World
+name: 01 - Hello World
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   hello:

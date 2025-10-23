@@ -1,0 +1,19 @@
+name: Contar arquivos toda meia-noite
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # 00:00 UTC = 21:00 no horário de Brasília
+
+jobs:
+  contar-arquivos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Contar arquivos
+        run: |
+          echo "Contagem automática - $(date)"
+          echo "HTML: $(find . -name '*.html' | wc -l)"
+          echo "CSS: $(find . -name '*.css' | wc -l)"
+          echo "JS: $(find . -name '*.js' | wc -l)"

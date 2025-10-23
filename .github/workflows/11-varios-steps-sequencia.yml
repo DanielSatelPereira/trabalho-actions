@@ -1,0 +1,25 @@
+name: Steps em sequência
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sequencia:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Mensagem de boas-vindas
+        run: echo "Data e hora do push = $(date)"
+
+      - name: Mostrar usuário que fez o push
+        run: echo "Usuário do push = ${{ github.actor }}"
+
+      - name: Contar arquivos HTML, CSS e JS
+        run: |
+          echo "HTML: $(find . -name '*.html' | wc -l)"
+          echo "CSS: $(find . -name '*.css' | wc -l)"
+          echo "JS: $(find . -name '*.js' | wc -l)"

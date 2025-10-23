@@ -1,0 +1,12 @@
+name: Rodar apenas aos sábados
+
+on:
+  schedule:
+    - cron: "0 12 * * 6" # 12h UTC todo sábado
+
+jobs:
+  sabado:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executa apenas sábado
+        run: echo "Executando job de sábado $(date)"
